@@ -1,0 +1,20 @@
+server:
+  port: 7114
+  error:
+    include-message: always
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://containers-us-west-203.railway.app:7114/railway
+    username: postgres
+    password: InF4CmMKwWVeMo9kPmHG
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
