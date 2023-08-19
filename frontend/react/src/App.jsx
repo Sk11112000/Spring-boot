@@ -11,7 +11,7 @@ const App = () => {
     setLoading(true);
      setTimeout(()=>{
       getCustomers().then( res=>{
-      
+      console.log(res);
      setCustomers(res.data);
     }).catch(err=>{
       console.log(err);
