@@ -1,34 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react'
+import SidebarWithHeader from './components/shared/SideBar'
+import { getCustomers } from './Services/Client'
+import { Wrap,WrapItem, Spinner,Text } from '@chakra-ui/react'
+import CardWithImage from './components/card'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
+  const [customers,setCustomers]=useState([]);
+  const [loading,setLoading]=useState(false);
+  useEffect(()=>{
+    setLoading(true);
+     setTimeout(()=>{
+      getCustomers().then( res=>{
+      
+     setCustomers(res.data);
+    }).catch(err=>{
+      console.log(err);
+    }).finally(()=>{
+      setLoading(false);
+    })
+     },10)
+  },[])
+  if(loading){
+    return(
+    <SidebarWithHeader>
+    <Spinner
+  thickness='4px'
+  speed='0.65s'
+  emptyColor='gray.200'
+  color='blue.500'
+  size='xl'
+/>
+    </SidebarWithHeader>
+    )
+  }
+  if(customers.length<=0)
+  {return(
+    <SidebarWithHeader>
+   <Text>No Customer is Present</Text>
+    </SidebarWithHeader>
+  )
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    
+    <SidebarWithHeader>
+      <Wrap justifyContent={"center"} spacing={"30"}>
+      {customers.map((customer,index)=>(
+        <WrapItem>
+        <CardWithImage {...customer}/>
+        </WrapItem>
+      ))}
+       </Wrap>
+    </SidebarWithHeader>
   )
 }
 
