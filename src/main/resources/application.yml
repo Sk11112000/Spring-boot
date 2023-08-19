@@ -4,6 +4,10 @@ server:
     include-message: always
 
 
+cors:
+  allowed-origins: '*'
+  allowed-methods: '*'
+
 spring:
   datasource:
     url: jdbc:postgresql://containers-us-west-203.railway.app:7114/railway
