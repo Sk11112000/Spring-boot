@@ -35,7 +35,7 @@ public class customerJdbcDataAccessService implements CustomerDao{
 
     @Override
     public void insertCustomer(Customer customer) {
-        String sql = "INSERT INTO customer(name, email, age) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO customer(name, email, age,gender) VALUES (?, ?, ?,?)";
 
         jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge());
     }

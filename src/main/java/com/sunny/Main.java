@@ -40,7 +40,8 @@ public class Main {
             Customer sunny = new Customer(
                   faker.name().fullName(),
                     faker.internet().safeEmailAddress(),
-                    random.nextInt(16,99)
+                    random.nextInt(16,99),
+                    "women"
             );
 //            Customer alex = new Customer(
 //                    "alex",
