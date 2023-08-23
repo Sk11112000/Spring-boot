@@ -13,6 +13,7 @@ import java.util.Objects;
         }
 )
 public class Customer{
+
     @Id
     @SequenceGenerator(
             name = "customer_id_seq",
@@ -28,6 +29,10 @@ public class Customer{
     )
     private String name;
     @Column(
+            nullable = false
+    )
+    private String gender;
+    @Column(
             unique = true,
             nullable = false
     )
@@ -39,18 +44,30 @@ public class Customer{
     private Integer age;
     Customer(){}
 
-    public Customer( String name, String email, Integer age) {
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Customer(String name, String email, Integer age, String gender) {
 
         this.name = name;
         this.email = email;
         this.age = age;
+        this.gender=gender;
     }
-    public Customer(Integer id, String name, String email, Integer age) {
+    public Customer(Integer id, String name, String email, Integer age,String gender) {
         this.id= Long.valueOf(id);
         this.name = name;
         this.email = email;
         this.age = age;
+        this.gender=gender;
     }
+
+
 
     @Override
     public String toString() {
@@ -85,8 +102,8 @@ public class Customer{
 
     public void setEmail(String email) {
         this.email = email;
-    }
 
+    }
     public void setAge(Integer age) {
         this.age = age;
     }
