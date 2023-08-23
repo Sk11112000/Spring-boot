@@ -1,5 +1,6 @@
 'use client'
-
+import { useState } from 'react';
+import { useToast } from '@chakra-ui/react';
 import {
     Tag,
     Heading,
@@ -11,13 +12,47 @@ import {
     Text,
     Stack,
     Button,
-    useColorModeValue,  
+    useColorModeValue,
+    Alert,  
 } from '@chakra-ui/react'
+import { deleteCustomer } from '../Services/Client';
+import UpdateCustomerWindow from './UpdateCustomerFrom';
+import { useDisclosure } from '@chakra-ui/react';
+export default function CardWithImage({id,name,email,age,gender,fetchCustomers}) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const DeleteCustomer=(id)=>{
+    
 
-export default function CardWithImage({id,name,email,age,gender}) {
-    gender=gender==="male"?"men":"women";
+    deleteCustomer(id).then(res=>{
+      toast({
+        title: 'Customer Information Delete.',
+        description: "We've Delete the customer's information.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+     
+      fetchCustomers();
+    }).catch(err=>{
+      toast({
+        title: 'Customer Information Was Not Deleted.',
+        description: err.message,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    })
+  }
+    if(gender==="male"||gender==="MALE"||gender==="Men")
+    {
+        gender="men"
+    }
+    else{
+        gender="women"
+    }
     const genderUpperCase = gender.toUpperCase()==="MEN"?"MALE":"FEMALE";
-    console.log(gender);
+    
   return (
     <Center py={6}>
       <Box
@@ -57,22 +92,40 @@ export default function CardWithImage({id,name,email,age,gender}) {
             <Text color={'gray.500'}>{email}</Text>
             <Text color={'gray.500'}>Age: {age} | Gender:{genderUpperCase}</Text>
           </Stack>
-
-         
-
+          <Flex>
           <Button
+           onClick={()=>DeleteCustomer(id)}
             w={'full'}
             mt={8}
-            bg={useColorModeValue('#151f21', 'gray.900')}
+            mr={2}
+            colorScheme='red'
             color={'white'}
             rounded={'md'}
             _hover={{
               transform: 'translateY(-2px)',
               boxShadow: 'lg',
             }}>
-            Follow
+            Delete
           </Button>
+          <Button
+      onClick={onOpen}
+      w={'full'}
+      mt={8}
+      bg={useColorModeValue('#151f21', 'gray.900')}
+      color={'white'}
+      rounded={'md'}
+      _hover={{
+        transform: 'translateY(-2px)',
+        boxShadow: 'lg',
+      }}
+    >
+      Update
+    </Button>
+          </Flex>
+
+         
         </Box>
+        <UpdateCustomerWindow id={id} email={email} age={age} gender={gender} name={name} isOpen={isOpen} onClose={onClose} fetchCustomers={fetchCustomers} />
       </Box>
     </Center>
   )
