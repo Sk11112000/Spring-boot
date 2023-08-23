@@ -44,7 +44,7 @@ public class Main {
                   faker.name().fullName(),
                     faker.internet().safeEmailAddress(),
                     random.nextInt(16,99),
-                        gender
+                        "FEMALE"
             );
 //            Customer alex = new Customer(
 //                    "alex",
