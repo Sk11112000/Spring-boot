@@ -17,6 +17,7 @@ import java.util.Random;
 
 @SpringBootApplication
 public class Main {
+    String gender="";
     //database
 
     //    record Foo(String name){}
@@ -34,6 +35,8 @@ public class Main {
 
     @Bean
     CommandLineRunner runner(CustomerRepository customerRespository) {
+        if(Math.random() > 0.5) gender  = "MALE";
+        else gender = "FEMALE";
         return args -> {
             var faker=new Faker();
             Random random=new Random();
@@ -41,7 +44,7 @@ public class Main {
                   faker.name().fullName(),
                     faker.internet().safeEmailAddress(),
                     random.nextInt(16,99),
-                    "women"
+                        gender
             );
 //            Customer alex = new Customer(
 //                    "alex",
