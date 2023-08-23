@@ -57,10 +57,10 @@ public class customerJdbcDataAccessServiceTest {
         customer.setName("Test");
         customer.setEmail("test@example.com");
         customer.setAge(30);
-
+        customer.setGender("male");
         customerService.insertCustomer(customer);
 
-        verify(jdbcTemplate, times(1)).update(anyString(), eq(customer.getName()), eq(customer.getEmail()), eq(customer.getAge()));
+        verify(jdbcTemplate, times(1)).update(anyString(), eq(customer.getName()), eq(customer.getEmail()), eq(customer.getAge()),eq(customer.getGender()));
     }
 
 }

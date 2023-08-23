@@ -1,8 +1,12 @@
 server:
-  port: 7114
+  port: 8080
   error:
     include-message: always
 
+
+cors:
+  allowed-origins: '*'
+  allowed-methods: '*'
 
 spring:
   datasource:

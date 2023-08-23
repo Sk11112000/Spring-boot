@@ -25,7 +25,9 @@ public class CustomerService {
                 .orElseThrow(() -> new ResourceNotFound("Customer with id [%s] not found".formatted(id)));
     }
     public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest)
-    {   String email=customerRegistrationRequest.email();
+    {
+
+        String email=customerRegistrationRequest.email();
         if(customerDao.existsPersonWithEmail(email))
         {
             throw new DuplicateResourceException("Email already Taken ");
@@ -34,7 +36,8 @@ public class CustomerService {
                 new Customer(
                         customerRegistrationRequest.name(),
                         customerRegistrationRequest.email(),
-                        customerRegistrationRequest.age()
+                        customerRegistrationRequest.age(),
+                        customerRegistrationRequest.gender()
                 )
         );
 
@@ -61,14 +64,22 @@ public class CustomerService {
             change=true;
         }
         if(updateRequest.email()!=null && !updateRequest.email().equals(customer.getEmail()))
-        {   if(customerDao.existsPersonWithEmail(updateRequest.email()))
+        {
+            if(customerDao.existsPersonWithEmail(updateRequest.email()))
         {
             throw new DuplicateResourceException(
                     "Email already Present"
             );
         }
-            customer.setName(updateRequest.email());
+            System.out.println(updateRequest.email());
+            customer.setEmail(updateRequest.email());
+
             change=true;
+        }
+        if(updateRequest.gender() != null && !updateRequest.gender().equals(customer.getGender()))
+        {
+            customer.setGender(updateRequest.gender());
+            change = true;
         }
         if(!change)
         {
