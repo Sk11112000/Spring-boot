@@ -117,9 +117,7 @@ public class Customer implements UserDetails {
         this.password=password;
     }
 
-    public  String getUserName(){
-        return email;
-    }
+
 
     @Override
     public String toString() {

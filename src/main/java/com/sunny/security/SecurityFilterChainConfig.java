@@ -3,7 +3,6 @@ package com.sunny.security;
 
 
 import com.sunny.jwt.JWTAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,13 +21,14 @@ public class SecurityFilterChainConfig {
 
     private final AuthenticationProvider authenticationProvider;
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
-
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
     public SecurityFilterChainConfig(AuthenticationProvider authenticationProvider,
-                                     JWTAuthenticationFilter jwtAuthenticationFilter){
+                                     JWTAuthenticationFilter jwtAuthenticationFilter, AuthenticationEntryPoint authenticationEntryPoint){
         this.authenticationProvider = authenticationProvider;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Bean
@@ -43,14 +43,6 @@ public class SecurityFilterChainConfig {
                         "/api/v1/auth/login"
                 )
                 .permitAll()
-                .requestMatchers(
-                        HttpMethod.GET,
-                        "/ping",
-                        "/api/v1/customers/*/profile-image"
-                )
-                .permitAll()
-                .requestMatchers(HttpMethod.GET, "/actuator/**")
-                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -59,7 +51,11 @@ public class SecurityFilterChainConfig {
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
+                )
+                .exceptionHandling(configurer->configurer
+                        .authenticationEntryPoint(authenticationEntryPoint)
                 );
+
         return http.build();
     }
 

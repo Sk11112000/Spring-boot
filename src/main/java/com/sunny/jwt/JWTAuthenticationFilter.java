@@ -45,7 +45,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         String jwt = authHeader.substring(7);
         String subject = jwtUtil.getSubject(jwt);
-        System.out.println(jwt);
+
 
         if (subject != null &&
                 SecurityContextHolder.getContext().getAuthentication() == null) {

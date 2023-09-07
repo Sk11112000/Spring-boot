@@ -25,14 +25,14 @@ public class CustomerController {
     }
 
     @GetMapping("customers")
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
 
         System.out.println(customerService.getAllCustomers());
         return customerService.getAllCustomers();
     }
 
     @GetMapping("customer/{customerId}")
-    public Customer getCustomer(@PathVariable Integer customerId) {
+    public CustomerDTO getCustomer(@PathVariable Integer customerId) {
         return customerService.getCustomer(customerId);
     }
     @PostMapping("add/customer")
