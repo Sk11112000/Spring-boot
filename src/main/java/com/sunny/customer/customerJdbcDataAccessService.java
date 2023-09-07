@@ -28,6 +28,7 @@ public class customerJdbcDataAccessService implements CustomerDao{
         var sql= """
                 SELECT *FROM customer
                 """;
+
        return jdbcTemplate.query(sql,customerRowMapper);
 
     }
@@ -45,7 +46,7 @@ public class customerJdbcDataAccessService implements CustomerDao{
     public void insertCustomer(Customer customer) {
         String sql = "INSERT INTO customer(name, email, age,gender,password) VALUES (?, ?, ?,?,?)";
 
-        jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge(),customer.getGender());
+        jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge(),customer.getGender(),customer.getPassword());
     }
 
 

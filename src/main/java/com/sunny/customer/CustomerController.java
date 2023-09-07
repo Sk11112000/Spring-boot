@@ -1,7 +1,8 @@
 package com.sunny.customer;
 
 
-import jwt.JWTUtil;
+
+import com.sunny.jwt.JWTUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,16 @@ public class CustomerController {
     private final CustomerService customerService;
     private final JWTUtil jwtUtil;
 
-    public CustomerController(CustomerService customerService,JWTUtil jwtUtil) {
+    public CustomerController(CustomerService customerService, JWTUtil jwtUtil) {
         this.customerService = customerService;
-        this.jwtUtil=jwtUtil;
+
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping("customers")
     public List<Customer> getCustomers() {
+
+        System.out.println(customerService.getAllCustomers());
         return customerService.getAllCustomers();
     }
 
@@ -34,12 +38,13 @@ public class CustomerController {
     @PostMapping("add/customer")
     public ResponseEntity<?> registerCustomer(@RequestBody CustomerRegistrationRequest request) {
 
-
+        customerService.addCustomer(request);
         // Your existing code...
         String jwtToken = jwtUtil.issueToken (request.email(),"ROLE_USER");
 
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,jwtToken ).build();
     }
+
     @DeleteMapping("delete/{customerId}")
     public void deleteCustomer(@PathVariable Integer customerId)
     {

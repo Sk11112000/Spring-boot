@@ -1,4 +1,6 @@
-package jwt;
+package com.sunny.jwt;
+
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,7 +35,9 @@ public class JWTUtil {
     }
 
 
-    public String issueToken(String subject, Map<String, Object> claims) {
+    public String issueToken(
+            String subject,
+            Map<String, Object> claims) {
         String token = Jwts
                 .builder()
                 .setClaims(claims)

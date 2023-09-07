@@ -16,11 +16,13 @@ import java.util.Random;
 
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.sunny", "jwt"})
 public class Main {
-    String gender="";
+    String gender = "";
     //database
 
     //    record Foo(String name){}
@@ -38,16 +40,16 @@ public class Main {
 
     @Bean
     CommandLineRunner runner(CustomerRepository customerRespository) {
-        if(Math.random() > 0.5) gender  = "MALE";
+        if (Math.random() > 0.5) gender = "MALE";
         else gender = "FEMALE";
         return args -> {
-            var faker=new Faker();
-            Random random=new Random();
+            var faker = new Faker();
+            Random random = new Random();
             Customer sunny = new Customer(
-                  faker.name().fullName(),
+                    faker.name().fullName(),
                     faker.internet().safeEmailAddress(),
-                    random.nextInt(16,99),
-                        gender,
+                    random.nextInt(16, 99),
+                    gender,
                     "password"
             );
 //            Customer alex = new Customer(

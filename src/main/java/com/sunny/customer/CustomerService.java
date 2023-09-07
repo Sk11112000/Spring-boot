@@ -35,14 +35,14 @@ public class CustomerService {
         {
             throw new DuplicateResourceException("Email already Taken ");
         }
-        System.out.println(passwordEncoder.encode(customerRegistrationRequest.password()));
+
         customerDao.insertCustomer(
                 new Customer(
                         customerRegistrationRequest.name(),
                         customerRegistrationRequest.email(),
                         customerRegistrationRequest.age(),
                         customerRegistrationRequest.gender(),
-                       passwordEncoder.encode(customerRegistrationRequest.password())
+                        passwordEncoder.encode(customerRegistrationRequest.password())
                 )
         );
 
@@ -52,7 +52,7 @@ public class CustomerService {
     {
         throw new DuplicateResourceException("Data With "+id+"not exist");
     }
-         customerDao.deleteCustomerById(id);
+        customerDao.deleteCustomerById(id);
     }
     public void updateCustomer(Integer id,CustomerUpdateRequest updateRequest)
     {
@@ -71,11 +71,11 @@ public class CustomerService {
         if(updateRequest.email()!=null && !updateRequest.email().equals(customer.getEmail()))
         {
             if(customerDao.existsPersonWithEmail(updateRequest.email()))
-        {
-            throw new DuplicateResourceException(
-                    "Email already Present"
-            );
-        }
+            {
+                throw new DuplicateResourceException(
+                        "Email already Present"
+                );
+            }
             System.out.println(updateRequest.email());
             customer.setEmail(updateRequest.email());
 
