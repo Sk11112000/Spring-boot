@@ -43,13 +43,13 @@ const CreateNewCustomerFrom = ({fetchCustomers}) => {
   var newCustomererror='';
   return (
     <>
-     
-      <Formik
+     <Formik
         initialValues={{
             name: '',
             email: '',
             age: 0,
             gender: '',
+            password:''
           }}
         validationSchema={Yup.object({
           name: Yup.string()
@@ -58,6 +58,9 @@ const CreateNewCustomerFrom = ({fetchCustomers}) => {
           email: Yup.string()
             .email('Invalid email address')
             .required('Required'),
+          password : Yup.string()
+            .min(4,"Must be more then or equal to 4")
+            .max(16,"Must be Less Then 16").required("Required"),
             age:Yup.number()
             .min(16,'Age should be atleast 16')
             .max(100,'Age should be More than 100')
@@ -67,9 +70,10 @@ const CreateNewCustomerFrom = ({fetchCustomers}) => {
             'Invalid gender').required('Required')
         })}
         onSubmit={(customer, { setSubmitting }) => {
-          
+          console.log("sunny");
           createNewCustomer(customer)
             .then(res => {
+              
               toast({
                 title: 'Customer created.',
                 description: "We've created Customer for you.",
@@ -116,13 +120,18 @@ const CreateNewCustomerFrom = ({fetchCustomers}) => {
             type="number"
             placeholder="18"
           />
-          
-        
           <MySelect label="Gender Type" name="gender">
             <option value="">Select a Gender </option>
             <option value="MALE">MALE</option>
             <option value="FEMALE">FEMALE</option>
           </MySelect>
+          <MyTextInput
+            label="password"
+           name="password"
+            type="password"
+            placeholder="Enter your password"
+          />
+         
           <Button type="submit" disabled={!isValid || isSubmitting}>
               Submit
             </Button>

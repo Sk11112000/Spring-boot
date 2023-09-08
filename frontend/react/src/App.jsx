@@ -4,9 +4,11 @@ import { getCustomers } from './Services/Client'
 import { Wrap,WrapItem, Spinner,Text } from '@chakra-ui/react'
 import CardWithImage from './components/card'
 import DrawerForm from './components/DrawerForm'
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
   const [customers,setCustomers]=useState([]);
+  
   const [loading,setLoading]=useState(false);
   const fetchCustomers=()=>{
     setLoading(true);

@@ -31,6 +31,7 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi'
+import { useAuth } from '../authContext'
 
 
 const LinkItems = [
@@ -42,6 +43,7 @@ const LinkItems = [
 ]
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  
   return (
     <Box
       transition="3s ease"
@@ -72,6 +74,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 }
 
 const NavItem = ({ icon, children, ...rest }) => {
+  
   return (
     <Box
       as="a"
@@ -107,6 +110,12 @@ const NavItem = ({ icon, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    const {logout}=useAuth();
+    
+   const handleLogout = () => {
+    logout();
+    
+  };
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -151,12 +160,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{localStorage.getItem("userName")}</Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
                 </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
+                <Box display={{ base: 'none', md: 'flex' }}>  
                   <FiChevronDown />
                 </Box>
               </HStack>
@@ -168,7 +177,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={handleLogout}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

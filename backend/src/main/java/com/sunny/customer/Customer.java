@@ -1,6 +1,11 @@
 package com.sunny.customer;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(
@@ -12,7 +17,7 @@ import java.util.Objects;
                 )
         }
 )
-public class Customer{
+public class Customer implements UserDetails {
 
     @Id
     @SequenceGenerator(
@@ -38,6 +43,49 @@ public class Customer{
     )
     private String email;
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+    @Column(
+            nullable = false
+    )
+    private String password;
     @Column(
             nullable = false
     )
@@ -52,19 +100,21 @@ public class Customer{
         this.gender = gender;
     }
 
-    public Customer(String name, String email, Integer age, String gender) {
+    public Customer(String name, String email, Integer age, String gender, String password) {
 
         this.name = name;
         this.email = email;
         this.age = age;
         this.gender=gender;
+        this.password=password;
     }
-    public Customer(Integer id, String name, String email, Integer age,String gender) {
+    public Customer(Integer id, String name, String email, Integer age, String gender, String password) {
         this.id= Long.valueOf(id);
         this.name = name;
         this.email = email;
         this.age = age;
         this.gender=gender;
+        this.password=password;
     }
 
 
@@ -76,6 +126,7 @@ public class Customer{
                 ", Name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                "password"+password+
                 '}';
     }
 
@@ -123,5 +174,6 @@ public class Customer{
     public Integer getAge() {
         return age;
     }
+
 
 }
