@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 @Service
 public class JWTUtil {
@@ -46,7 +47,7 @@ public class JWTUtil {
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(
                         Date.from(
-                                Instant.now().plus(15, DAYS)
+                                Instant.now().plus(30, SECONDS)
                         )
                 )
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
