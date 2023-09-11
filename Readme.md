@@ -56,7 +56,6 @@ Follow these steps to get the Customer Dashboard up and running on your local en
 
 Great! You can create a README file for your customer dashboard project using the template I provided earlier, and then customize it to fit the specifics of your project. Here's how you can adapt the template for your Spring Boot and React project with JWT authentication and Chakra UI:
 
-markdown
 2. Set up the frontend:
   ```bash
     cd frontend
