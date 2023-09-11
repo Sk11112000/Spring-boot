@@ -57,70 +57,18 @@ Follow these steps to get the Customer Dashboard up and running on your local en
 Great! You can create a README file for your customer dashboard project using the template I provided earlier, and then customize it to fit the specifics of your project. Here's how you can adapt the template for your Spring Boot and React project with JWT authentication and Chakra UI:
 
 markdown
-Copy code
-# Customer Dashboard
-
-Customer dashboard for administrators built with Spring Boot and React, featuring JWT authentication and Chakra UI.
-
-## Table of Contents
-
-- [Customer Dashboard](#customer-dashboard)
-  - [Table of Contents](#table-of-contents)
-  - [Description](#description)
-  - [Features](#features)
-  - [Technologies Used](#technologies-used)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-  - [Usage](#usage)
-  - [Authentication](#authentication)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Acknowledgments](#acknowledgments)
-
-## Description
-
-The Customer Dashboard is a web application designed for administrators to manage customer data efficiently. It provides a user-friendly interface built with Chakra UI and leverages React for the frontend and Spring Boot for the backend. JWT authentication is used to secure user access.
-
-## Features
-
-- User-friendly customer data management.
-- JWT authentication for secure login.
-- Responsive design using Chakra UI.
-- [Add any other features your dashboard provides]
-
-## Technologies Used
-
-- **Frontend**: React, Chakra UI
-- **Backend**: Spring Boot
-- **Authentication**: JWT (JSON Web Tokens)
-- [Add any other technologies or libraries you've used]
-
-## Getting Started
-
-Follow these steps to get the Customer Dashboard up and running on your local environment.
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) for frontend development.
-- [Java](https://www.java.com/) and [Maven](https://maven.apache.org/) for backend development.
-- [Git](https://git-scm.com/) for version control.
-
-### Installation
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/your-username/customer-dashboard.git
-    cd customer-dashboard
 2. Set up the frontend:
+  ```bash
     cd frontend
     npm install
     npm start
+```
 3. Set up the backend:
+  ```bash
     cd backend
     mvn install
     mvn spring-boot:run
+```
 Usage
 Once the application is set up and running, you can access the customer dashboard by visiting the provided URL in your web browser.
 
